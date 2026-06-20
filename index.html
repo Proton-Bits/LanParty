@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LanParty – Tromba Latas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Barlow:wght@300;400;600&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- SCANLINES overlay -->
+<div class="scanlines" aria-hidden="true"></div>
+
+<!-- PARTICLE CANVAS -->
+<canvas id="particles" aria-hidden="true"></canvas>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="logo">
+    <img src="assets/logo.jpg" alt="Logo LanParty">
+    <span>Lan<span class="accent">Party</span></span>
+  </div>
+  <nav>
+    <a href="#sobre">Sobre</a>
+    <a href="#players">Players</a>
+    <a href="#jogos">Jogos</a>
+    <a href="#inscricao" class="btn-nav">
+      <span>Inscrição</span>
+      <i class="fa-solid fa-chevron-right"></i>
+    </a>
+  </nav>
+  <button class="menu-toggle" aria-label="Menu" id="menuToggle">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#sobre">Sobre</a>
+  <a href="#players">Players</a>
+  <a href="#jogos">Jogos</a>
+  <a href="#inscricao">Inscrição</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="sobre">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="dot"></span>
+      <span>Evento Ao Vivo</span>
+    </div>
+    <h1 class="hero-title">
+      <span class="line1">LAN PARTY</span>
+      <span class="line2">TROMBA LATAS</span>
+    </h1>
+    <p class="hero-sub">Conecte. Compita. Domine.</p>
+    <div class="hero-cta">
+      <a href="#inscricao" class="btn-primary">
+        <i class="fa-solid fa-bolt"></i>
+        Garantir Vaga
+      </a>
+      <a href="#players" class="btn-ghost">Ver Players</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num" data-target="9">0</span>
+      <span class="stat-label">Players</span>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat">
+      <span class="stat-num" data-target="4">0</span>
+      <span class="stat-label">Jogos</span>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat">
+      <span class="stat-num" data-target="1">0</span>
+      <span class="stat-label">Evento</span>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">
+    <span>scroll</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+</section>
+
+<!-- PLAYERS -->
+<section class="section players-section" id="players">
+  <div class="section-header">
+    <span class="section-tag">Competidores</span>
+    <h2 class="section-title">Os <span class="accent">Players</span></h2>
+    <p class="section-sub">Conheça os guerreiros da LAN</p>
+  </div>
+
+  <div class="players-grid">
+
+    <div class="player-card" data-name="Matheus Menezes" data-info="Tudo eu tudo eu tudo eu" data-role="Fragger">
+      <div class="card-glow"></div>
+      <div class="card-header">
+        <div class="player-photo">
+          <img src="assets/players/matheus.png" alt="Matheus Menezes">
+          <div class="photo-ring"></div>
+        </div>
+        <div class="player-badge">i7</div>
+      </div>
+      <div class="card-body">
+        <h3>Matheus Menezes</h3>
+        <span class="player-role">Fragger</span>
+        <ul class="specs">
+          <li><i class="fa-solid fa-microchip"></i> Intel Core i7 2100</li>
+          <li><i class="fa-solid fa-memory"></i> 16GB DDR3</li>
+          <li><i class="fa-solid fa-display"></i> RTX 1660 Super</li>
+          <li><i class="fa-solid fa-tv"></i> 60Hz</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <button class="card-info-btn" data-name="Matheus Menezes" data-info="Tudo eu tudo eu tudo eu">
+          <i class="fa-solid fa-info"></i> Bio
+        </button>
+      </div>
+    </div>
+
+    <div class="player-card featured" data-name="Lucas Marvullo" data-info="Chique show" data-role="IGL">
+      <div class="card-glow"></div>
+      <div class="card-header">
+        <div class="player-photo">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ__w7zw0pv2cc6CtHpIVcStPOkiejEwLuHUg&s" alt="Lucas Marvullo">
+          <div class="photo-ring"></div>
+        </div>
+        <div class="player-badge gold">i9</div>
+      </div>
+      <div class="card-body">
+        <h3>Lucas Marvullo</h3>
+        <span class="player-role gold-role">IGL</span>
+        <ul class="specs">
+          <li><i class="fa-solid fa-microchip"></i> Intel i9 Ultra</li>
+          <li><i class="fa-solid fa-memory"></i> 32GB DDR5</li>
+          <li><i class="fa-solid fa-display"></i> RTX 5070</li>
+          <li><i class="fa-solid fa-tv"></i> 40Hz</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <button class="card-info-btn" data-name="Lucas Marvullo" data-info="Chique show">
+          <i class="fa-solid fa-info"></i> Bio
+        </button>
+      </div>
+    </div>
+
+    <div class="player-card" data-name="João Camacho" data-info="O mais bonito e esperto" data-role="Support">
+      <div class="card-glow"></div>
+      <div class="card-header">
+        <div class="player-photo">
+          <img src="assets/players/Joao.jpg (2).jpeg" alt="João Camacho">
+          <div class="photo-ring"></div>
+        </div>
+        <div class="player-badge">R3</div>
+      </div>
+      <div class="card-body">
+        <h3>João Camacho</h3>
+        <span class="player-role">Support</span>
+        <ul class="specs">
+          <li><i class="fa-solid fa-microchip"></i> Ryzen 3 3200G</li>
+          <li><i class="fa-solid fa-memory"></i> 8GB DDR4</li>
+          <li><i class="fa-solid fa-display"></i> RTX 3060 12GB</li>
+          <li><i class="fa-solid fa-tv"></i> Samsung 27" 75Hz</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <button class="card-info-btn" data-name="João Camacho" data-info="O mais bonito e esperto">
+          <i class="fa-solid fa-info"></i> Bio
+        </button>
+      </div>
+    </div>
+
+    <div class="player-card" data-name="Kainan Rodrigues" data-info="Mira torta" data-role="Sniper">
+      <div class="card-glow"></div>
+      <div class="card-header">
+        <div class="player-photo">
+          <img src="assets/players/kainan.jpg.jpeg" alt="Kainan Rodrigues">
+          <div class="photo-ring"></div>
+        </div>
+        <div class="player-badge amd">R7</div>
+      </div>
+      <div class="card-body">
+        <h3>Kainan Rodrigues</h3>
+        <span class="player-role">Sniper</span>
+        <ul class="specs">
+          <li><i class="fa-solid fa-microchip"></i> Ryzen 7 5700X3D</li>
+          <li><i class="fa-solid fa-memory"></i> 32GB DDR4</li>
+          <li><i class="fa-solid fa-display"></i> RX 7600</li>
+          <li><i class="fa-solid fa-tv"></i> 75Hz</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <button class="card-info-btn" data-name="Kainan Rodrigues" data-info="Mira torta">
+          <i class="fa-solid fa-info"></i> Bio
+        </button>
+      </div>
+    </div>
+
+    <div class="player-card" data-name="Julio Ferruci" data-info="rebola pros crias" data-role="Entry">
+      <div class="card-glow"></div>
+      <div class="card-header">
+        <div class="player-photo">
+          <img src="assets/players/julio.jpg.jpeg" alt="Julio Ferruci">
+          <div class="photo-ring"></div>
+        </div>
+        <div class="player-badge amd">R5</div>
+      </div>
+      <div class="card-body">
+        <h3>Julio Ferruci</h3>
+        <span class="player-role">Entry</span>
+        <ul class="specs">
+          <li><i class="fa-solid fa-microchip"></i> Ryzen 5 5600G</li>
+          <li><i class="fa-solid fa-memory"></i> 16GB RAM</li>
+          <li><i class="fa-solid fa-display"></i> RX 7600</li>
+          <li><i class="fa-solid fa-tv"></i> 60Hz</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <button class="card-info-btn" data-name="Julio Ferruci" data-info="rebola pros crias">
+          <i class="fa-solid fa-info"></i> Bio
+        </button>
+      </div>
+    </div>
+
+    <div class="player-card" data-name="Paulo Souza" data-info="o boi" data-role="Tank">
+      <div class="card-glow"></div>
+      <div class="card-header">
+        <div class="player-photo">
+          <img src="assets/players/paulo.jpg.jpeg" alt="Paulo Souza">
+          <div class="photo-ring"></div>
+        </div>
+        <div class="player-badge amd">R5</div>
+      </div>
+      <div class="card-body">
+        <h3>Paulo Souza</h3>
+        <span class="player-role">Tank</span>
+        <ul class="specs">
+          <li><i class="fa-solid fa-microchip"></i> Ryzen 5 5600G</li>
+          <li><i class="fa-solid fa-memory"></i> 16GB RAM</li>
+          <li><i class="fa-solid fa-display"></i> Integrada 💀</li>
+          <li><i class="fa-solid fa-tv"></i> —</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <button class="card-info-btn" data-name="Paulo Souza" data-info="o boi">
+          <i class="fa-solid fa-info"></i> Bio
+        </button>
+      </div>
+    </div>
+
+    <div class="player-card" data-name="Pedro Peliçon" data-info="SATURNIO" data-role="Lurker">
+      <div class="card-glow"></div>
+      <div class="card-header">
+        <div class="player-photo">
+          <img src="assets/players/pedro.jpg.jpeg" alt="Pedro Peliçon">
+          <div class="photo-ring"></div>
+        </div>
+        <div class="player-badge gold">5070Ti</div>
+      </div>
+      <div class="card-body">
+        <h3>Pedro Peliçon</h3>
+        <span class="player-role">Lurker</span>
+        <ul class="specs">
+          <li><i class="fa-solid fa-microchip"></i> Ryzen 3 3200G</li>
+          <li><i class="fa-solid fa-memory"></i> 16GB RAM</li>
+          <li><i class="fa-solid fa-display"></i> RTX 5070 Ti</li>
+          <li><i class="fa-solid fa-tv"></i> —</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <button class="card-info-btn" data-name="Pedro Peliçon" data-info="SATURNIO">
+          <i class="fa-solid fa-info"></i> Bio
+        </button>
+      </div>
+    </div>
+
+    <div class="player-card" data-name="Breno Candido" data-info="F1 rapaziada?" data-role="Scout">
+      <div class="card-glow"></div>
+      <div class="card-header">
+        <div class="player-photo">
+          <img src="assets/players/breno.jpg.jpeg" alt="Breno Candido">
+          <div class="photo-ring"></div>
+        </div>
+        <div class="player-badge intel">Xeon</div>
+      </div>
+      <div class="card-body">
+        <h3>Breno Candido</h3>
+        <span class="player-role">Scout</span>
+        <ul class="specs">
+          <li><i class="fa-solid fa-microchip"></i> Xeon 6728P 24-Core</li>
+          <li><i class="fa-solid fa-memory"></i> 8GB RAM</li>
+          <li><i class="fa-solid fa-display"></i> —</li>
+          <li><i class="fa-solid fa-tv"></i> —</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <button class="card-info-btn" data-name="Breno Candido" data-info="F1 rapaziada?">
+          <i class="fa-solid fa-info"></i> Bio
+        </button>
+      </div>
+    </div>
+
+    <div class="player-card protagonist" data-name="Fernand José Costa" data-info="PROTAGONISTA aura + ego = rego🔥🥵" data-role="Protagonista">
+      <div class="card-glow"></div>
+      <div class="card-header">
+        <div class="player-photo">
+          <img src="assets/players/fernando.jpg.jpeg" alt="Fernand José Costa">
+          <div class="photo-ring"></div>
+        </div>
+        <div class="player-badge purple">i3</div>
+      </div>
+      <div class="card-body">
+        <h3>Fernand José Costa</h3>
+        <span class="player-role purple-role">Protagonista ⭐</span>
+        <ul class="specs">
+          <li><i class="fa-solid fa-microchip"></i> Intel Core i3 2300</li>
+          <li><i class="fa-solid fa-memory"></i> 2GB RAM 😭</li>
+          <li><i class="fa-solid fa-display"></i> —</li>
+          <li><i class="fa-solid fa-tv"></i> —</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <button class="card-info-btn" data-name="Fernand José Costa" data-info="PROTAGONISTA aura + ego = rego🔥🥵 | aura + protagonismo = autismo😨😨😨😱😱😱💀💀💀☠️☠️">
+          <i class="fa-solid fa-info"></i> Bio
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GAMES -->
+<section class="section games-section" id="jogos">
+  <div class="section-header">
+    <span class="section-tag">Lineup</span>
+    <h2 class="section-title">Jogos <span class="accent">Disponíveis</span></h2>
+    <p class="section-sub">Clique para baixar e se preparar</p>
+  </div>
+
+  <div class="games-grid">
+
+    <a href="https://github.com/Proton-Bits/LanParty/releases/download/download/Condition.Zero.rar" target="_blank" class="game-card">
+      <div class="game-img-wrap">
+        <img src="https://images.steamusercontent.com/ugc/177163026759059636/861CFB9A4429EF934F1BACFB34AF1249595F7A2E/" alt="CS Condition Zero">
+        <div class="game-overlay">
+          <i class="fa-solid fa-download"></i>
+          <span>Download</span>
+        </div>
+      </div>
+      <div class="game-info">
+        <span class="game-genre">FPS</span>
+        <p class="game-name">CS Condition Zero</p>
+      </div>
+    </a>
+
+    <a href="#" target="_blank" class="game-card">
+      <div class="game-img-wrap">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3vWcDnlSbmaQAITgTONmt0dWcAxg4LLGQEA&s" alt="GTA San Andreas">
+        <div class="game-overlay">
+          <i class="fa-solid fa-download"></i>
+          <span>Download</span>
+        </div>
+      </div>
+      <div class="game-info">
+        <span class="game-genre">Open World</span>
+        <p class="game-name">GTA San Andreas</p>
+      </div>
+    </a>
+
+    <a href="#" target="_blank" class="game-card">
+      <div class="game-img-wrap">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz-0uCK_P8Upg-6qFxErPWlKU2PZCyBMVpuw&s" alt="Need For Speed Most Wanted">
+        <div class="game-overlay">
+          <i class="fa-solid fa-download"></i>
+          <span>Download</span>
+        </div>
+      </div>
+      <div class="game-info">
+        <span class="game-genre">Racing</span>
+        <p class="game-name">NFS Most Wanted</p>
+      </div>
+    </a>
+
+    <a href="https://github.com/Proton-Bits/LanParty/releases/download/download/Condition.Zero.rar" target="_blank" class="game-card">
+      <div class="game-img-wrap">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRzQAjERqtIoGSWRGqsbe4czaywkbJVbRcOQ&s" alt="Half Life">
+        <div class="game-overlay">
+          <i class="fa-solid fa-download"></i>
+          <span>Download</span>
+        </div>
+      </div>
+      <div class="game-info">
+        <span class="game-genre">FPS</span>
+        <p class="game-name">Half Life</p>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- CTA INSCRICAO -->
+<section class="cta-section" id="inscricao">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <span class="section-tag">Vagas Limitadas</span>
+      <h2>Pronto para <span class="accent">Dominar</span>?</h2>
+      <p>Garanta seu spot no maior evento LAN da galera. Traga seu setup, traga seu jogo.</p>
+    </div>
+    <a href="#" class="btn-primary large">
+      <i class="fa-solid fa-bolt"></i>
+      Fazer Inscrição
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">
+    <img src="assets/logo.jpg" alt="Logo">
+    <span>LanParty</span>
+  </div>
+  <div class="footer-social">
+    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+    <a href="#" aria-label="Twitch"><i class="fa-brands fa-twitch"></i></a>
+  </div>
+  <p class="footer-copy">Tromba Latas © <span id="year"></span> — Todos os direitos reservados</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose" aria-label="Fechar">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="modal-avatar">
+      <img id="modalImg" src="" alt="">
+    </div>
+    <h3 id="modalName"></h3>
+    <p id="modalInfo"></p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
