@@ -121,30 +121,24 @@ if (heroStats) statsObserver.observe(heroStats);
 
 // ===== SCROLL REVEAL =====
 const revealObserver = new IntersectionObserver(entries => {
-  entries.forEach((entry, i) => {
+  entries.forEach(entry => {
     if (entry.isIntersecting) {
       setTimeout(() => {
         entry.target.classList.add('visible');
-      }, entry.target.dataset.delay || 0);
+      }, parseInt(entry.target.dataset.delay || 0));
     }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-
-// Add reveal to cards with stagger
-document.querySelectorAll('.player-card').forEach((el, i) => {
-  el.classList.add('reveal');
-  el.dataset.delay = (i % 4) * 80;
-  revealObserver.observe(el);
+}, {
+  threshold: 0.1,
+  rootMargin: '0px 0px -60px 0px'
 });
 
-document.querySelectorAll('.game-card').forEach((el, i) => {
-  el.classList.add('reveal');
-  el.dataset.delay = i * 80;
-  revealObserver.observe(el);
-});
+// Observa TODOS os elementos com .reveal
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  if (!el.dataset.delay) {
+    el.dataset.delay = i * 50;
+  }
 
-document.querySelectorAll('.section-header, .cta-text, .cta-inner .btn-primary').forEach(el => {
-  el.classList.add('reveal');
   revealObserver.observe(el);
 });
 
@@ -155,37 +149,53 @@ const modalName = document.getElementById('modalName');
 const modalInfo = document.getElementById('modalInfo');
 const modalImg = document.getElementById('modalImg');
 
-function openModal(name, info, imgSrc) {
-  modalName.textContent = name;
-  modalInfo.textContent = info;
-  modalImg.src = imgSrc || '';
-  modalImg.style.display = imgSrc ? 'block' : 'none';
-  modal.classList.add('open');
-  modal.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
-}
+if (modal && modalClose && modalName && modalInfo && modalImg) {
 
-function closeModal() {
-  modal.classList.remove('open');
-  modal.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
-}
+  function openModal(name, info, imgSrc) {
+    modalName.textContent = name;
+    modalInfo.textContent = info;
+    modalImg.src = imgSrc || '';
+    modalImg.style.display = imgSrc ? 'block' : 'none';
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
 
-document.querySelectorAll('.card-info-btn').forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const card = btn.closest('.player-card');
-    const img = card.querySelector('.player-photo img');
-    openModal(btn.dataset.name, btn.dataset.info, img ? img.src : '');
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.card-info-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+
+      const card = btn.closest('.player-card');
+      const img = card?.querySelector('.player-photo img');
+
+      openModal(
+        btn.dataset.name,
+        btn.dataset.info,
+        img ? img.src : ''
+      );
+    });
   });
-});
 
-modalClose.addEventListener('click', closeModal);
-modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  modalClose.addEventListener('click', closeModal);
 
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeModal();
-});
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
+  });
+}
 
 // ===== CURSOR GLOW (desktop only) =====
 if (window.matchMedia('(pointer: fine)').matches) {
