@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edições – LanParty Tromba Latas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Barlow:wght@300;400;600&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== EDITIONS PAGE EXTRAS ===== */
+    .editions-hero {
+      position: relative;
+      min-height: 44vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 20px 60px;
+      overflow: hidden;
+    }
+    .editions-hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 50%, rgba(155,93,229,0.08) 0%, transparent 70%),
+        url("https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop") center/cover no-repeat;
+      filter: brightness(0.15) saturate(0.5);
+      z-index: -1;
+    }
+    .editions-hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, var(--dark) 100%);
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--border2) 10%, var(--border2) 90%, transparent);
+      transform: translateX(-50%);
+    }
+
+    .edition-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr;
+      gap: 0;
+      margin-bottom: 60px;
+      align-items: start;
+    }
+
+    /* Alternating sides */
+    .edition-item:nth-child(even) .edition-card { grid-column: 3; grid-row: 1; }
+    .edition-item:nth-child(even) .edition-center { grid-column: 2; grid-row: 1; }
+    .edition-item:nth-child(even) .edition-spacer { grid-column: 1; grid-row: 1; }
+    .edition-item:nth-child(odd) .edition-card { grid-column: 1; grid-row: 1; text-align: right; }
+    .edition-item:nth-child(odd) .edition-center { grid-column: 2; grid-row: 1; }
+    .edition-item:nth-child(odd) .edition-spacer { grid-column: 3; grid-row: 1; }
+
+    .edition-center {
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 8px;
+      position: relative; z-index: 2;
+    }
+
+    .edition-num {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: var(--dark);
+      border: 2px solid var(--cyan);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px; font-weight: 900;
+      color: var(--cyan);
+      box-shadow: 0 0 20px rgba(0,245,255,0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+      flex-shrink: 0;
+    }
+    .edition-item:hover .edition-num {
+      transform: scale(1.15);
+      box-shadow: 0 0 30px rgba(0,245,255,0.5);
+    }
+
+    .edition-card {
+      background: var(--dark3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 22px 24px;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+      cursor: default;
+    }
+    .edition-card:hover {
+      border-color: var(--border2);
+      box-shadow: 0 12px 40px rgba(0,245,255,0.1);
+      transform: translateY(-4px);
+    }
+
+    .edition-spacer { /* empty */ }
+
+    .edition-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 6px; display: block;
+    }
+
+    .edition-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 20px; font-weight: 700;
+      color: white; margin-bottom: 4px;
+    }
+
+    .edition-location {
+      font-size: 13px; color: var(--text2);
+      display: flex; align-items: center; gap: 6px;
+      margin-bottom: 16px;
+    }
+    .edition-item:nth-child(odd) .edition-location { justify-content: flex-end; }
+    .edition-location i { font-size: 11px; color: var(--cyan); }
+
+    .edition-divider {
+      height: 1px; background: var(--border);
+      margin-bottom: 14px;
+    }
+
+    .players-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--text2); margin-bottom: 10px; display: block;
+    }
+
+    .players-list {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .edition-item:nth-child(odd) .players-list { justify-content: flex-end; }
+
+    .player-tag {
+      font-size: 12px; font-weight: 600;
+      background: rgba(0,245,255,0.06);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 4px 10px;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .player-tag:hover {
+      border-color: rgba(0,245,255,0.4);
+      color: var(--cyan);
+      background: rgba(0,245,255,0.1);
+    }
+
+    .player-count {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 28px; font-weight: 900; color: white;
+      display: block;
+    }
+    .player-count-label {
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--text2);
+    }
+
+    /* Stats bar */
+    .editions-stats {
+      display: flex; justify-content: center; gap: 60px;
+      margin: 20px 0 80px;
+      flex-wrap: wrap;
+    }
+    .e-stat { text-align: center; }
+    .e-stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 48px; font-weight: 900; color: var(--cyan);
+      display: block; line-height: 1;
+    }
+    .e-stat-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--text2);
+    }
+    .e-stat-sep {
+      width: 1px; background: var(--border2); align-self: stretch;
+    }
+
+    /* Mobile timeline */
+    @media (max-width: 680px) {
+      .timeline::before { left: 24px; }
+      .edition-item {
+        grid-template-columns: 60px 1fr;
+        margin-bottom: 36px;
+      }
+      .edition-item:nth-child(odd) .edition-card,
+      .edition-item:nth-child(even) .edition-card {
+        grid-column: 2; grid-row: 1; text-align: left;
+      }
+      .edition-item:nth-child(odd) .edition-center,
+      .edition-item:nth-child(even) .edition-center {
+        grid-column: 1; grid-row: 1;
+      }
+      .edition-item:nth-child(odd) .edition-spacer,
+      .edition-item:nth-child(even) .edition-spacer { display: none; }
+      .edition-item:nth-child(odd) .edition-location,
+      .edition-item:nth-child(odd) .players-list { justify-content: flex-start; }
+      .editions-stats { gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="scanlines" aria-hidden="true"></div>
+<canvas id="particles" aria-hidden="true"></canvas>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="logo">
+    <img src="assets/logo.jpg" alt="Logo LanParty">
+    <span>Lan<span class="accent">Party</span></span>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#players">Players</a>
+    <a href="edicoes.html" style="color: var(--cyan);">Edições</a>
+    <a href="index.html#inscricao" class="btn-nav">
+      <span>Inscrição</span>
+      <i class="fa-solid fa-chevron-right"></i>
+    </a>
+  </nav>
+  <button class="menu-toggle" aria-label="Menu" id="menuToggle">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="index.html">Home</a>
+  <a href="index.html#players">Players</a>
+  <a href="edicoes.html">Edições</a>
+  <a href="index.html#inscricao">Inscrição</a>
+</div>
+
+<!-- HERO -->
+<section class="editions-hero">
+  <div class="editions-hero-bg"></div>
+  <div class="hero-eyebrow" style="animation: fadeDown 0.8s ease both;">
+    <span class="dot"></span>
+    <span>História da Galera</span>
+  </div>
+  <h1 class="hero-title">
+    <span class="line1" style="font-size: clamp(40px, 8vw, 90px);">TODAS AS</span>
+    <span class="line2" style="font-size: clamp(40px, 8vw, 90px);">EDIÇÕES</span>
+  </h1>
+  <p class="hero-sub">Do primeiro setup ao último frag — cada edição registrada</p>
+</section>
+
+<!-- STATS -->
+<div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
+  <div class="editions-stats">
+    <div class="e-stat">
+      <span class="e-stat-num" data-target="6">0</span>
+      <span class="e-stat-label">Edições</span>
+    </div>
+    <div class="e-stat-sep"></div>
+    <div class="e-stat">
+      <span class="e-stat-num" data-target="3">0</span>
+      <span class="e-stat-label">Sedes</span>
+    </div>
+    <div class="e-stat-sep"></div>
+    <div class="e-stat">
+      <span class="e-stat-num" data-target="11">0</span>
+      <span class="e-stat-label">Players únicos</span>
+    </div>
+    <div class="e-stat-sep"></div>
+    <div class="e-stat">
+      <span class="e-stat-num" data-target="43">0</span>
+      <span class="e-stat-label">Participações</span>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<section style="padding: 0 0 120px; position: relative; z-index: 1;">
+  <div class="timeline">
+
+    <!-- EDIÇÃO 1 -->
+    <div class="edition-item reveal">
+      <div class="edition-card">
+        <span class="edition-label">1ª Edição</span>
+        <p class="edition-title">Julio House</p>
+        <div class="edition-location">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Casa do Julio</span>
+        </div>
+        <div class="edition-divider"></div>
+        <span class="players-label"><i class="fa-solid fa-users" style="margin-right:6px; color: var(--cyan);"></i>5 Players</span>
+        <div class="players-list">
+          <span class="player-tag">Matheus</span>
+          <span class="player-tag">Kainan</span>
+          <span class="player-tag">João</span>
+          <span class="player-tag">Renan</span>
+          <span class="player-tag">Julio</span>
+        </div>
+      </div>
+      <div class="edition-center">
+        <div class="edition-num">01</div>
+      </div>
+      <div class="edition-spacer"></div>
+    </div>
+
+    <!-- EDIÇÃO 2 -->
+    <div class="edition-item reveal">
+      <div class="edition-spacer"></div>
+      <div class="edition-center">
+        <div class="edition-num">02</div>
+      </div>
+      <div class="edition-card">
+        <span class="edition-label">2ª Edição</span>
+        <p class="edition-title">Julio House</p>
+        <div class="edition-location">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Casa do Julio</span>
+        </div>
+        <div class="edition-divider"></div>
+        <span class="players-label"><i class="fa-solid fa-users" style="margin-right:6px; color: var(--cyan);"></i>6 Players</span>
+        <div class="players-list">
+          <span class="player-tag">Julio</span>
+          <span class="player-tag">Matheus</span>
+          <span class="player-tag">Kainan</span>
+          <span class="player-tag">João</span>
+          <span class="player-tag">Pedro</span>
+          <span class="player-tag">Julio</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDIÇÃO 3 -->
+    <div class="edition-item reveal">
+      <div class="edition-card">
+        <span class="edition-label">3ª Edição</span>
+        <p class="edition-title">Marvullo House</p>
+        <div class="edition-location">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Casa do Lucas Marvullo</span>
+        </div>
+        <div class="edition-divider"></div>
+        <span class="players-label"><i class="fa-solid fa-users" style="margin-right:6px; color: var(--cyan);"></i>8 Players</span>
+        <div class="players-list">
+          <span class="player-tag">Matheus</span>
+          <span class="player-tag">Fernando</span>
+          <span class="player-tag">Lucas</span>
+          <span class="player-tag">Julio</span>
+          <span class="player-tag">Pedro</span>
+          <span class="player-tag">João</span>
+          <span class="player-tag">Gon</span>
+          <span class="player-tag">Breno</span>
+        </div>
+      </div>
+      <div class="edition-center">
+        <div class="edition-num">03</div>
+      </div>
+      <div class="edition-spacer"></div>
+    </div>
+
+    <!-- EDIÇÃO 4 -->
+    <div class="edition-item reveal">
+      <div class="edition-spacer"></div>
+      <div class="edition-center">
+        <div class="edition-num">04</div>
+      </div>
+      <div class="edition-card">
+        <span class="edition-label">4ª Edição</span>
+        <p class="edition-title">Marvullo House</p>
+        <div class="edition-location">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Casa do Lucas Marvullo</span>
+        </div>
+        <div class="edition-divider"></div>
+        <span class="players-label"><i class="fa-solid fa-users" style="margin-right:6px; color: var(--cyan);"></i>8 Players</span>
+        <div class="players-list">
+          <span class="player-tag">Matheus</span>
+          <span class="player-tag">Matrex</span>
+          <span class="player-tag">Lucas</span>
+          <span class="player-tag">Julio</span>
+          <span class="player-tag">Pedro</span>
+          <span class="player-tag">João</span>
+          <span class="player-tag">Kainan</span>
+          <span class="player-tag">Renan</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDIÇÃO 5 -->
+    <div class="edition-item reveal">
+      <div class="edition-card">
+        <span class="edition-label">5ª Edição</span>
+        <p class="edition-title">Kainan House</p>
+        <div class="edition-location">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Casa do Kainan</span>
+        </div>
+        <div class="edition-divider"></div>
+        <span class="players-label"><i class="fa-solid fa-users" style="margin-right:6px; color: var(--cyan);"></i>7 Players</span>
+        <div class="players-list">
+          <span class="player-tag">Matheus</span>
+          <span class="player-tag">Renan</span>
+          <span class="player-tag">Julio</span>
+          <span class="player-tag">João</span>
+          <span class="player-tag">Kainan</span>
+          <span class="player-tag">Lucas</span>
+          <span class="player-tag">Pedro</span>
+        </div>
+      </div>
+      <div class="edition-center">
+        <div class="edition-num">05</div>
+      </div>
+      <div class="edition-spacer"></div>
+    </div>
+
+    <!-- EDIÇÃO 6 -->
+    <div class="edition-item reveal">
+      <div class="edition-spacer"></div>
+      <div class="edition-center">
+        <div class="edition-num" style="border-color: var(--violet); color: var(--violet); box-shadow: 0 0 20px rgba(155,93,229,0.4);">06</div>
+      </div>
+      <div class="edition-card" style="border-color: rgba(155,93,229,0.3);">
+        <span class="edition-label" style="color: var(--violet);">6ª Edição — Mais Recente</span>
+        <p class="edition-title">Kainan House</p>
+        <div class="edition-location">
+          <i class="fa-solid fa-location-dot" style="color: var(--violet);"></i>
+          <span>Casa do Kainan</span>
+        </div>
+        <div class="edition-divider"></div>
+        <span class="players-label"><i class="fa-solid fa-users" style="margin-right:6px; color: var(--violet);"></i>6 Players</span>
+        <div class="players-list">
+          <span class="player-tag" style="border-color: rgba(155,93,229,0.3);">Matheus</span>
+          <span class="player-tag" style="border-color: rgba(155,93,229,0.3);">Renan</span>
+          <span class="player-tag" style="border-color: rgba(155,93,229,0.3);">Julio</span>
+          <span class="player-tag" style="border-color: rgba(155,93,229,0.3);">João</span>
+          <span class="player-tag" style="border-color: rgba(155,93,229,0.3);">Kainan</span>
+          <span class="player-tag" style="border-color: rgba(155,93,229,0.3);">Lucas</span>
+        </div>
+        <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);">
+          <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--violet);">
+            <i class="fa-solid fa-circle" style="font-size: 8px; margin-right: 6px; animation: pulse 1.5s infinite;"></i>
+            Edição atual
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRESENÇA POR PLAYER -->
+<section style="position: relative; z-index:1; padding: 0 40px 100px; max-width: 900px; margin: 0 auto;">
+  <div class="section-header">
+    <span class="section-tag">Ranking</span>
+    <h2 class="section-title">Presença <span class="accent">por Player</span></h2>
+    <p class="section-sub">Quem nunca faltou uma edição</p>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+
+    <!-- Matheus – 6/6 -->
+    <div class="presence-row reveal" data-player="Matheus" data-count="6" data-total="6"></div>
+    <!-- João – 6/6 -->
+    <div class="presence-row reveal" data-player="João" data-count="6" data-total="6"></div>
+    <!-- Julio – 6/6 -->
+    <div class="presence-row reveal" data-player="Julio" data-count="6" data-total="6"></div>
+    <!-- Kainan – 5/6 -->
+    <div class="presence-row reveal" data-player="Kainan" data-count="5" data-total="6"></div>
+    <!-- Pedro – 5/6 -->
+    <div class="presence-row reveal" data-player="Pedro" data-count="5" data-total="6"></div>
+    <!-- Lucas – 4/6 -->
+    <div class="presence-row reveal" data-player="Lucas" data-count="4" data-total="6"></div>
+    <!-- Renan – 4/6 -->
+    <div class="presence-row reveal" data-player="Renan" data-count="4" data-total="6"></div>
+    <!-- Breno – 1/6 -->
+    <div class="presence-row reveal" data-player="Breno" data-count="1" data-total="6"></div>
+    <!-- Fernando – 1/6 -->
+    <div class="presence-row reveal" data-player="Fernando" data-count="1" data-total="6"></div>
+    <!-- Gon – 1/6 -->
+    <div class="presence-row reveal" data-player="Gon" data-count="1" data-total="6"></div>
+    <!-- Matrex – 1/6 -->
+    <div class="presence-row reveal" data-player="Matrex" data-count="1" data-total="6"></div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">
+    <img src="assets/logo.jpg" alt="Logo">
+    <span>LanParty</span>
+  </div>
+  <div class="footer-social">
+    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+    <a href="#" aria-label="Twitch"><i class="fa-brands fa-twitch"></i></a>
+  </div>
+  <p class="footer-copy">Tromba Latas © <span id="year"></span> — Todos os direitos reservados</p>
+</footer>
+
+<script src="script.js"></script>
+<script>
+
+
+
+  // ===== BUILD PRESENCE BARS =====
+  
+  document.querySelectorAll('.presence-row').forEach((row, idx) => {
+    const player = row.dataset.player;
+    const count = parseInt(row.dataset.count);
+    const total = parseInt(row.dataset.total);
+    const pct = Math.round((count / total) * 100);
+    const isTop = count === total;
+    const color = isTop ? 'var(--cyan)' : count >= 4 ? 'var(--violet)' : 'var(--text2)';
+
+    row.innerHTML = `
+      <div style="display:flex; align-items:center; gap:16px; background: var(--dark3); border: 1px solid var(--border); border-radius: 6px; padding: 14px 20px; transition: border-color 0.3s;"
+           onmouseenter="this.style.borderColor='rgba(0,245,255,0.3)'" onmouseleave="this.style.borderColor='var(--border)'">
+        <div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(0,245,255,0.08); border: 1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:900; color:${color}; flex-shrink:0;">
+          ${count === total ? '<i class="fa-solid fa-star" style="font-size:12px;"></i>' : count}
+        </div>
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span style="font-family:'Rajdhani',sans-serif; font-size:16px; font-weight:700; color:white;">${player}</span>
+            <span style="font-size:12px; font-weight:600; color:${color};">${count}/${total} edições</span>
+          </div>
+          <div style="height:4px; background:var(--border); border-radius:2px; overflow:hidden;">
+            <div class="bar-fill" style="height:100%; width:0%; background:${color}; border-radius:2px; transition: width 1.2s cubic-bezier(0.4,0,0.2,1);" data-pct="${pct}"></div>
+          </div>
+        </div>
+      </div>
+    `;
+    row.dataset.delay = idx * 60;
+  });
+
+  // Animate bars on scroll
+  const barObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bar = entry.target.querySelector('.bar-fill');
+        if (bar) {
+          setTimeout(() => { bar.style.width = bar.dataset.pct + '%'; }, 200);
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.presence-row').forEach(r => barObserver.observe(r));
+
+  // Stat counters
+  const statObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('[data-target]').forEach(el => {
+          let start = null;
+          const target = parseInt(el.dataset.target);
+          function step(ts) {
+            if (!start) start = ts;
+            const p = Math.min((ts - start) / 1000, 1);
+            el.textContent = Math.floor(p * target);
+            if (p < 1) requestAnimationFrame(step);
+            else el.textContent = target;
+          }
+          requestAnimationFrame(step);
+        });
+        statObs.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+  const statsEl = document.querySelector('.editions-stats');
+  if (statsEl) statObs.observe(statsEl);
+</script>
+</body>
+</html>
