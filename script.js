@@ -1,9 +1,7 @@
-/* ===== SCRIPT.JS – LAN Party ===== */
 
 // Year
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// ===== PARTICLE SYSTEM =====
 (function() {
   const canvas = document.getElementById('particles');
   const ctx = canvas.getContext('2d');
@@ -41,7 +39,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
   function loop() {
     ctx.clearRect(0, 0, W, H);
 
-    // Draw connections
     for (let i = 0; i < COUNT; i++) {
       for (let j = i + 1; j < COUNT; j++) {
         const dx = particles[i].x - particles[j].x;
@@ -74,7 +71,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
   init();
 })();
 
-// ===== HEADER SCROLL =====
 const header = document.getElementById('header');
 window.addEventListener('scroll', () => {
   header.classList.toggle('scrolled', window.scrollY > 30);
@@ -92,7 +88,6 @@ mobileNav.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => mobileNav.classList.remove('open'));
 });
 
-// ===== STAT COUNTER =====
 function animateCount(el, target, duration) {
   let start = null;
   function step(ts) {
@@ -133,7 +128,6 @@ const revealObserver = new IntersectionObserver(entries => {
   rootMargin: '0px 0px -60px 0px'
 });
 
-// Observa TODOS os elementos com .reveal
 document.querySelectorAll('.reveal').forEach((el, i) => {
   if (!el.dataset.delay) {
     el.dataset.delay = i * 50;
@@ -142,7 +136,6 @@ document.querySelectorAll('.reveal').forEach((el, i) => {
   revealObserver.observe(el);
 });
 
-// ===== MODAL =====
 const modal = document.getElementById('modal');
 const modalClose = document.getElementById('modalClose');
 const modalName = document.getElementById('modalName');
